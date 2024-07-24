@@ -18,3 +18,17 @@ func respondWithJSON(w http.ResponseWriter, code int, payoad interface{}) {
 	w.WriteHeader(code)
 	w.Write(dat)
 }
+
+func respondWithError(w http.ResponseWriter, code int, msg string) {
+	if code > 499 {
+		log.Println("Responsng with 5XX error:", msg)
+	}
+
+	type errResponse struct {
+		Error string `json:"error"`
+	}
+
+	respondWithJSON(w, code, errResponse{
+		Error: msg,
+	})
+}
