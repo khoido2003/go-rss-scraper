@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-func respondWithJSON(w http.ResponseWriter, code int, payoad interface{}) {
-	dat, err := json.Marshal(payoad)
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+	dat, err := json.Marshal(payload)
 
 	if err != nil {
-		log.Printf("Failed to marshal JSON response %v", payoad)
+		log.Printf("Failed to marshal JSON response %v", payload)
 		w.WriteHeader(500)
 		return
 	}
