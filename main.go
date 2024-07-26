@@ -73,7 +73,7 @@ func main() {
 
 	log.Printf("Server starting on port %v", portString)
 
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 
 	if err != nil {
 		log.Fatal(err)
