@@ -1,5 +1,3 @@
--- goose postgres postgres://username:password@localhost:5432/rss-scraper-db up
-
 
 -- +goose Up
 
