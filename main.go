@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -20,6 +21,13 @@ type apiconfig struct {
 }
 
 func main() {
+	feed, err := urlToFeed("https://wagslane.dev/index.xml")
+
+	if err != nil {
+		log.Fatal("Can't parse RSS feed")
+	}
+
+	fmt.Println("Feed Title:", feed)
 
 	godotenv.Load()
 
@@ -43,9 +51,13 @@ func main() {
 
 	queries := database.New(conn)
 
+	db := database.New(conn)
 	apiCfg := apiconfig{
 		DB: queries,
 	}
+
+	// Start scrapping
+	go startScraping(db, 10, time.Minute)
 
 	router := chi.NewRouter()
 
